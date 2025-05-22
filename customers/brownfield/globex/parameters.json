@@ -1,0 +1,37 @@
+{
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus",
+      "metadata": {
+        "description": "The Azure region where resources will be deployed."
+      }
+    },
+    "environment": {
+      "type": "string",
+      "defaultValue": "production",
+      "metadata": {
+        "description": "The environment for the deployment (e.g., production, staging)."
+      }
+    },
+    "adminEmail": {
+      "type": "string",
+      "metadata": {
+        "description": "The email address of the administrator."
+      }
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the resource group to deploy resources into."
+      }
+    },
+    "tags": {
+      "type": "object",
+      "defaultValue": {},
+      "metadata": {
+        "description": "Tags to apply to the resources."
+      }
+    }
+  }
+}
