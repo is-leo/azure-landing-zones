@@ -10,7 +10,7 @@ cd bicep/alz-main
 git remote add upstream https://github.com/Azure/ALZ-Bicep.git
 git fetch upstream
 git merge upstream/main
-git push origin  (or master)
+git push origin  upstream
 Now your fork is updated with the latest from Microsoft.
 
 Then go back to your azure-landingzones repo root:
