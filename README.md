@@ -1,2 +1,2 @@
 # azure-landing-zones
-Cegal AZL bicep modules for cloud customers
+Cegal AZL bicep modules for cloud customers.
