@@ -1,5 +1,5 @@
 param location string = 'East US'
-param environment string = 'Contoso'
+param environment string = 'customerA'
 param tags object = {}
 
 var mainTemplate = 'bicep/alz-main/modules/main.bicep'

@@ -7,7 +7,7 @@
     "vmSize": "Standard_DS1_v2",
     "monitoringEnabled": true,
     "tags": {
-      "project": "Contoso",
+      "project": "customerA",
       "environment": "Production"
     }
   }
