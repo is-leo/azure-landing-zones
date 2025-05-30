@@ -1,0 +1,2 @@
+ad6a7a5f-5319-46b1-b9a9-514d4d29f75c
+az account set --subscription "ad6a7a5f-5319-46b1-b9a9-514d4d29f75c" --Cloud Ops

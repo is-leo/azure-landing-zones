@@ -1,0 +1,2 @@
+9f5b58fe-04c4-472d-8ecd-f3634f9f7040 
+az account set --subscription "9f5b58fe-04c4-472d-8ecd-f3634f9f7040" --SQL Labs

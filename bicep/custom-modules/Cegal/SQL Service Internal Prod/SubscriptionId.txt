@@ -1,0 +1,2 @@
+c6f83ae2-1551-4565-967e-544a2ad022fd
+az account set --subscription "c6f83ae2-1551-4565-967e-544a2ad022fd" --SQL Service Internal Prod

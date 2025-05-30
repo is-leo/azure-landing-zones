@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "Azure Deploy POC",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
