@@ -1,10 +1,10 @@
 targetScope = 'subscription'
 
-param userManagedIdentityId = '/subscriptions/ad6a7a5f-5319-46b1-b9a9-514d4d29f75c/resourceGroups/CloudOpsMonitoringRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/alertsManagedIdentity'
-param resourceGroupName = 'CloudOpsMonitoringRG'
-param location = 'swedencentral'
-param maintenancePolicyName = 'Cegal-Add-Maintenance-Tag'
-param managedPolicyName = 'Cegal-Add-Managed-Tag'
+param userManagedIdentityId string = '/subscriptions/ad6a7a5f-5319-46b1-b9a9-514d4d29f75c/resourceGroups/CloudOpsMonitoringRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/alertsManagedIdentity'
+param resourceGroupName string = 'CloudOpsMonitoringRG'
+param location string = 'swedencentral'
+param maintenancePolicyName string = 'Cegal-Add-Maintenance-Tag'
+param managedPolicyName string = 'Cegal-Add-Managed-Tag'
 
 // This variable contains a number of objects that load in the custom Azure Policy Defintions that are provided as part of the ESLZ/ALZ reference implementation - this is automatically created in the file 'infra-as-code\bicep\modules\policy\lib\policy_definitions\_policyDefinitionsBicepInput.txt' via a GitHub action, that runs on a daily schedule, and is then manually copied into this variable.
 var varCustomPolicyDefinitionsArray = [
