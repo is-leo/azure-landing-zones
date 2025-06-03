@@ -1,3 +1,5 @@
+
+//# Wrapper for ALZ with some customization
 param location string = 'East US'
 param environment string = 'customerA'
 param tags object = {}
