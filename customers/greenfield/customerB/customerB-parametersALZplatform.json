@@ -1,0 +1,78 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "parTargetManagementGroupId": {
+      "value": "customerB-mg"
+    },
+    "parAssigneeObjectId": {
+      "value": "<assignee-object-id>"
+    },
+    "parAssigneePrincipalType": {
+      "value": "ServicePrincipal"
+    },
+    "parRoleDefinitionId": {
+      "value": "/providers/Microsoft.Authorization/roleDefinitions/acdd72a7-3385-48ef-bd42-f606fba81ae7"
+    },
+    "parPolicyAssignmentName": {
+      "value": "customerB-policy-assignment"
+    },
+    "parPolicyAssignmentDisplayName": {
+      "value": "Customer B Policy Assignment"
+    },
+    "parPolicyAssignmentDescription": {
+      "value": "Policy assignment for Customer B"
+    },
+    "parPolicyAssignmentDefinitionId": {
+      "value": "/providers/Microsoft.Authorization/policyDefinitions/<policy-definition-id>"
+    },
+    "parPolicyAssignmentParameters": {
+      "value": {}
+    },
+    "parPolicyAssignmentParameterOverrides": {
+      "value": {}
+    },
+    "parPolicyAssignmentNonComplianceMessages": {
+      "value": []
+    },
+    "parPolicyAssignmentNotScopes": {
+      "value": []
+    },
+    "parPolicyAssignmentEnforcementMode": {
+      "value": "Default"
+    },
+    "parPolicyAssignmentOverrides": {
+      "value": []
+    },
+    "parPolicyAssignmentResourceSelectors": {
+      "value": []
+    },
+    "parPolicyAssignmentDefinitionVersion": {
+      "value": ""
+    },
+    "parPolicyAssignmentIdentityType": {
+      "value": "None"
+    },
+    "parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs": {
+      "value": []
+    },
+    "parPolicyAssignmentIdentityRoleAssignmentsSubs": {
+      "value": []
+    },
+    "parPolicyAssignmentIdentityRoleAssignmentsResourceGroups": {
+      "value": []
+    },
+    "parPolicyAssignmentIdentityRoleDefinitionIds": {
+      "value": []
+    },
+    "parTelemetryOptOut": {
+      "value": false
+    },
+    "loggingResourceGroupName": {
+      "value": "customerB-logging-rg"
+    },
+    "subscriptionId": {
+      "value": "<subscription-id>"
+    }
+  }
+}
