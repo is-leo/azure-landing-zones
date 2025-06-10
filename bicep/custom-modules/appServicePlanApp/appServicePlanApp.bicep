@@ -1,10 +1,9 @@
 @description('The name of the environment. This must be dev, test, or prod.')
 @allowed([
-  'dev'
-  'test'
+  'nonprod'
   'prod'
 ])
-param environmentName string = 'dev'
+param environmentName string = 'nonprod'
 
 @description('The unique name of the solution. This is used to ensure that resource names are unique.')
 @minLength(5)
@@ -24,7 +23,7 @@ param location string = 'swedencentral'
 
 @secure()
 @description('The administrator login username for the SQL server.')
-param sqlServerAdministratorLogin string
+param sqlServerAdministratorLogin string 
 
 @secure()
 @description('The administrator login password for the SQL server.')
