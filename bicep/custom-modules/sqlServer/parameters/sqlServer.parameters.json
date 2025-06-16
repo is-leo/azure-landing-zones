@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "your-location"
+    },
+    "sqlServerName": {
+      "value": "your-sql-server-name"
+    },
+    "tag": {
+      "value": {
+        "environment": "production",
+        "department": "IT"
+      }
+    },
+    "sqlServerAdministratorLogin": {
+      "value": "sqladmin"
+    },
+    "sqlServerAdministratorPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/ad6a7a5f-5319-46b1-b9a9-514d4d29f75c/resourceGroups/CloudOpsMonitoringRG/providers/Microsoft.KeyVault/vaults/gatewayvault"
+        },
+        "secretName": "sqladminPassword"
+      }
+    }
+  }
+}
