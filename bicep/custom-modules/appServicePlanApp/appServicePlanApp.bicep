@@ -3,12 +3,13 @@
   'nonprod'
   'prod'
 ])
-param environmentName string = 'nonprod'
+param environmentName string
 
 @description('The unique name of the solution. This is used to ensure that resource names are unique.')
 @minLength(5)
 @maxLength(30)
-param solutionName string = 'toyhr${uniqueString(resourceGroup().id)}' //replace prefix 'toyhr' with your own
+param solutionName string 
+var solutionNameUnique = '${solutionName}${uniqueString(resourceGroup().id)}'
 
 @description('The number of App Service plan instances.')
 @minValue(1)
@@ -19,7 +20,7 @@ param appServicePlanInstanceCount int = 1
 param appServicePlanSku object
 
 @description('The Azure region into which the resources should be deployed.')
-param location string = 'swedencentral'
+param location string 
 
 @secure()
 @description('The administrator login username for the SQL server.')
@@ -32,9 +33,9 @@ param sqlServerAdministratorPassword string
 @description('The name and tier of the SQL database SKU.')
 param sqlDatabaseSku object
 
-var appServicePlanName = '${environmentName}-${solutionName}-plan'
-var appServiceAppName = '${environmentName}-${solutionName}-app'
-var sqlServerName = '${environmentName}-${solutionName}-sql'
+var appServicePlanName = '${environmentName}-${solutionNameUnique}-plan'
+var appServiceAppName = '${environmentName}-${solutionNameUnique}-app'
+var sqlServerName = '${environmentName}-${solutionNameUnique}-sql'
 var sqlDatabaseName = 'Employees'
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
