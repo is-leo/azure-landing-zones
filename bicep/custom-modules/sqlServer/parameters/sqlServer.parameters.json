@@ -15,14 +15,19 @@
       }
     },
     "sqlServerAdministratorLogin": {
-      "value": "sqladmin"
+     "reference": {
+        "keyVault": {
+          "id": "/subscriptions/ad6a7a5f-5319-46b1-b9a9-514d4d29f75c/resourceGroups/CloudOpsMonitoringRG/providers/Microsoft.KeyVault/vaults/gatewayvault"
+        },
+        "secretName": "sqlAdminLogin"
+      }
     },
     "sqlServerAdministratorPassword": {
       "reference": {
         "keyVault": {
           "id": "/subscriptions/ad6a7a5f-5319-46b1-b9a9-514d4d29f75c/resourceGroups/CloudOpsMonitoringRG/providers/Microsoft.KeyVault/vaults/gatewayvault"
         },
-        "secretName": "sqladminPassword"
+        "secretName": "sqlAdminPassword"
       }
     }
   }

@@ -6,7 +6,7 @@
       "value": "swedencentral"
     },
     "keyVaultName": {
-      "value": "your-keyvault-name"
+      "value": "leo-keyvault"
     },
     "tags": {
       "value": {
@@ -24,30 +24,30 @@
       "value": false
     },
     "enabledForTemplateDeployment": {
-      "value": false
-    },
-    "enableRbacAuthorization": {
       "value": true
     },
+    "enableRbacAuthorization": {
+      "value": false
+    },
     "tenantId": {
-      "value": "your-tenant-id"
+      "value": "2e138877-802d-4280-962c-3fc309dd4b30"
     },
     "objectId": {
-      "value": "your-object-id"
+      "value": "99b63c5f-a3bf-453f-a48b-4d59b3996e85"
     },
     "keysPermissions": {
       "value": []
     },
     "secretsPermissions": {
-      "value": []
+      "value": ["get", "list", "create", "delete", "purge", "recover"]
     },
     "skuName": {
       "value": "standard"
     },
     "networkAcls": {
       "value": {
-        "bypass": "None",
-        "defaultAction": "Deny",
+        "bypass": "AzureServices",
+        "defaultAction": "Allow",
         "ipRules": [],
         "virtualNetworkRules": []
       }

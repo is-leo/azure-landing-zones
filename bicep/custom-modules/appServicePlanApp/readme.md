@@ -11,12 +11,12 @@ All resources are deployed into an existing resource group. The module is parame
 
 ---
 
-## Parameters
+## Parameters 
 
-Parameter name | Required | Description
--------------- | -------- | -----------
-environmentName | Yes | The name of the environment. Allowed values: `nonprod`, `prod`.
-solutionName | Yes | The unique name of the solution. Used to ensure resource names are unique. Min 5, Max 30 characters.
+Parameter name              | Required | Description
+--------------              | -------- | -----------
+environmentName             | Yes      | The name of the environment. Allowed values: `nonprod`, `prod`.
+solutionName                | Yes | The unique name of the solution. Used to ensure resource names are unique. Min 5, Max 30 characters.
 appServicePlanInstanceCount | Yes | The number of App Service plan instances. Min 1, Max 10.
 appServicePlanSku | Yes | Object with `name` and `tier` for the App Service plan SKU.
 location | Yes | The Azure region for deployment.
@@ -43,10 +43,11 @@ This module does not define explicit outputs, but you can extend it to output re
 az group create --name <your-resource-group> --location <your-location>
 
 2. Deploy the module:
-az deployment group create \
+az deployment group create \ 
+  --name main \
   --resource-group <your-resource-group> \
-  --template-file [appServicePlanApp.bicep](http://_vscodecontentref_/0) \
-  --parameters [appServicePlanApp.parameters.json](http://_vscodecontentref_/1)
+  --template-file [appServicePlanApp.bicep]
+  --parameters [appServicePlanApp.parameters.json]
   */
 
 The SQL administrator password can be securely referenced from Azure Key Vault, as shown in the parameter file example.
