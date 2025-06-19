@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "publicIpName": {
+      "value": "myPublicIp"
+    },
+    "location": {
+      "value": "swedencentral"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "owner": "your-name"
+      }
+    },
+    "publicIpSku": {
+      "value": "Basic"
+    },
+    "publicIPAllocationMethod": {
+      "value": "Dynamic"
+    },
+    "vmName": {
+      "value": "li-vm2"
+    },
+    "dnsLabelPrefix": {
+      "value": "li-vm2-unique"
+    }
+  }
+}

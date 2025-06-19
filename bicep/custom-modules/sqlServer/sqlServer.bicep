@@ -2,11 +2,11 @@
 /*
 https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-bicep
 */
-@description('Resource group name for the SQL Server.')
-param location string   
-
 @description('The name of the SQL Server to be created.')
 param sqlServerName string   
+
+@description('Resource group name for the SQL Server.')
+param location string   
 
 @description('Tags to be applied to the SQL Server.')
 param tags object 

@@ -36,7 +36,7 @@ param sqlDatabaseSku object
 var appServicePlanName = '${environmentName}-${solutionNameUnique}-plan'
 var appServiceAppName = '${environmentName}-${solutionNameUnique}-app'
 var sqlServerName = '${environmentName}-${solutionNameUnique}-sql'
-var sqlDatabaseName = 'Employees'
+var sqlDatabaseName = 'appdb'
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
   name: appServicePlanName

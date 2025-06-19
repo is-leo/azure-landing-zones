@@ -7,11 +7,11 @@ https://learn.microsoft.com/en-us/azure/templates/microsoft.resources/resourcegr
 targetScope = 'subscription'
 
 param resourceGroupName string
-param resourceGroupLocation string
+param location string
 param tags object
 
 resource newRG 'Microsoft.Resources/resourceGroups@2024-07-01' = {
   name: resourceGroupName
-  location: resourceGroupLocation
+  location: location
   tags: tags  // Apply the tags
 }

@@ -1,8 +1,8 @@
-@description('Specifies the Azure location where the key vault should be created.')
-param location string
-
 @description('Specifies the name of the key vault.')
 param keyVaultName string
+
+@description('Specifies the Azure location where the key vault should be created.')
+param location string
 
 @description('Tags to apply to the Key Vault.')
 param tags object = {}
