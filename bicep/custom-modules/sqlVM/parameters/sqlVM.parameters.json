@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmName": {
+      "value": "my-sql-vm"
+    },
+    "location": {
+      "value": "swedencentral"
+    },
+    "vmSize": {
+      "value": "Standard_D4s_v5"
+    },
+    "nicName": {
+      "value": "my-sql-vm-nic"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "owner": "your-name"
+      }
+    },
+    "SQLimage": {
+      "value": "sql2022-ws2022"
+    },
+    "sqlSku": {
+      "value": "standard-gen2"
+    },
+    "adminUsername": {
+     "reference": {
+        "keyVault": {
+          "id": "/subscriptions/ad6a7a5f-5319-46b1-b9a9-514d4d29f75c/resourceGroups/CloudOpsMonitoringRG/providers/Microsoft.KeyVault/vaults/leo-keyvault-bicep"
+        },
+        "secretName": "adminUsername"
+      }
+    },
+    "adminPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/ad6a7a5f-5319-46b1-b9a9-514d4d29f75c/resourceGroups/CloudOpsMonitoringRG/providers/Microsoft.KeyVault/vaults/leo-keyvault-bicep"
+        },
+        "secretName": "adminPassword"
+      }
+    },
+    "storageWorkloadType": {
+      "value": "General"
+    },
+    "sqlDataDisksCount": {
+      "value": 1
+    },
+    "sqlDataPath": {
+      "value": "F:\\SQLData"
+    },
+    "sqlLogDisksCount": {
+      "value": 1
+    },
+    "sqlLogPath": {
+      "value": "G:\\SQLLog"
+    },
+    "securityType": {
+      "value": "TrustedLaunch"
+    }
+  }
+}

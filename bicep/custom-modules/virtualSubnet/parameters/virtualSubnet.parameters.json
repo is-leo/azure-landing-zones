@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetName": {
+      "value": "myVnet"
+    },
+    "subnetName": {
+      "value": "mySubnet"
+    },
+    "subnetAddressPrefix": {
+      "value": "10.0.1.0/24"
+    },
+    "networkSecurityGroupName": {
+      "value": "myNsg"
+    }
+  }
+}

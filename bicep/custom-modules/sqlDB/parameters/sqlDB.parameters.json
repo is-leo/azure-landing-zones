@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "swedencentral"
+    },
+    "sqlServerName": {
+      "value": "my-sql-server"
+    },
+    "sqlDatabaseName": {
+      "value": "my-database"
+    },
+    "sqlSKU": {
+      "value": "S0"
+    },
+    "sqlTier": {
+      "value": "Standard"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "owner": "your-name"
+      }
+    }
+  }
+}

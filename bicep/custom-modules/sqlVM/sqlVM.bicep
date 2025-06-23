@@ -1,7 +1,10 @@
-//Get-AzVMSize -Location "swedencentral"
+//az vm list-sizes --location swedencentral --output table
 
-//Get-AzVMImageOffer -Location "swedencentral" -PublisherName "MicrosoftWindowsServer"
-//Get-AzVMImageOffer -Location "swedencentral" -PublisherName "MicrosoftSQLServer"
+//List available Windows Server image offers in Sweden Central
+//az vm image list-offers --location swedencentral --publisher MicrosoftWindowsServer --output table
+
+//List available SQL Server image offers in Sweden Central
+//az vm image list-offers --location swedencentral --publisher MicrosoftSQLServer --output table
 
 /*
 2025-01-22 : SH : first version
@@ -49,6 +52,7 @@ param SQLimage string
 param sqlSku string
 
 @description('The admin user name of the VM')
+@secure()
 param adminUsername string
 
 @description('The admin password of the VM')
@@ -61,7 +65,7 @@ param adminPassword string
   'OLTP'
   'DW'
 ])
-param storageWorkloadType string = 'General'
+param storageWorkloadType string 
 
 @description('Amount of data disks (1TB each) for SQL Data files')
 @minValue(1)
@@ -69,7 +73,7 @@ param storageWorkloadType string = 'General'
 param sqlDataDisksCount int 
 
 @description('Path for SQL Data files. Please choose drive letter from F to Z, and other drives from A to E are reserved for system')
-param sqlDataPath string = 'F:\\SQLData'
+param sqlDataPath string 
 
 @description('Amount of data disks (1TB each) for SQL Log files')
 @minValue(1)
@@ -77,14 +81,14 @@ param sqlDataPath string = 'F:\\SQLData'
 param sqlLogDisksCount int
 
 @description('Path for SQL Log files. Please choose drive letter from F to Z and different than the one used for SQL data. Drive letter from A to E are reserved for system')
-param sqlLogPath string = 'G:\\SQLLog'
+param sqlLogPath string
 
 @description('Security Type of the Virtual Machine.')
 @allowed([
   'Standard'
   'TrustedLaunch'
 ])
-param securityType string = 'TrustedLaunch'
+param securityType string
 
 var securityProfileJson = {
   uefiSettings: {
@@ -117,7 +121,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2024-05-01' existing = {
 resource virtualMachine 'Microsoft.Compute/virtualMachines@2024-07-01' = {
   name: vmName
   location: location
-  tags: tags  // Apply the tags
+  tags: tags  
   properties: {
     hardwareProfile: {
       vmSize: vmSize

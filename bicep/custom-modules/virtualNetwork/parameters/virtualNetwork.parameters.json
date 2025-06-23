@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualNetworkName": {
+      "value": "myVnet"
+    },
+    "location": {
+      "value": "swedencentral"
+    },
+    "addressPrefix": {
+      "value": "10.0.0.0/16"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "owner": "your-name"
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-@description('The name of the resource group containing the VM and SQL Server')
+@description('The name of the virtual network resource group')
 param virtualNetworkResourceGroup string
 
 @description('The location for the resources')
@@ -7,9 +7,6 @@ param location string
 @description('The name of the Azure SQL Server')
 param sqlServerName string
 
-@description('The name of the Azure SQL Database')
-param sqlDatabaseName string
-
 @description('The name of the subnet to place the private endpoint')
 param subnetId string
 
@@ -17,17 +14,17 @@ param subnetId string
 param privateEndpointName string
 
 @description('The name of the private DNS zone group')
-param privateDnsZoneGroupName string = 'default'
+param privateDnsZoneGroupName // Typically left as "default" unless managing multiple DNS configurations
 
 @description('The private DNS zone ID for SQL Server')
-param privateDnsZoneId string
+param privateDnsZoneId string //replace with your subscription ID and resource group name
 
 param tags object 
 
 resource sqlPrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-05-01' = {
   name: privateEndpointName
   location: location
-  tags: tags  // Apply the tags
+  tags: tags 
   properties: {
     subnet: {
       id: subnetId
@@ -48,6 +45,9 @@ resource sqlPrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-05-01' = {
 
 resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-05-01' = {
   name: '${sqlPrivateEndpoint.name}/${privateDnsZoneGroupName}' // Correctly formatted nested name
+  dependsOn: [
+    sqlPrivateEndpoint // Ensure this resource is deployed after the private endpoint
+  ]
   properties: {
     privateDnsZoneConfigs: [
       {
@@ -58,9 +58,6 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
       }
     ]
   }
-  dependsOn: [
-    sqlPrivateEndpoint // Ensure this resource is deployed after the private endpoint
-  ]
 }
 
 output privateEndpointId string = sqlPrivateEndpoint.id

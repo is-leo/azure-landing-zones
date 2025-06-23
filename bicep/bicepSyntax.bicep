@@ -124,3 +124,59 @@ module applicationModule 'application.bicep' = {
     apiKey: keyVault.getSecret('ApiKey')
   }
 }
+
+//Define Child Resources
+//Method 1: nested child resource
+
+resource vm 'Microsoft.Compute/virtualMachines@2024-07-01' = {
+  name: vmName
+  location: location
+  properties: {
+    // ...
+  }
+
+  resource installCustomScriptExtension 'extensions' = { //the nested resource automatically inherits the parent's resource type, so you need to specify only the child resource type, extensions.
+    name: 'InstallCustomScript'
+    location: location
+    properties: {
+      // ...
+    }
+  }
+}
+
+output childResourceId string = vm::installCustomScriptExtension.id
+
+//Method 2: use the parent property to inform Bicep about the parent-child relationship
+resource vm 'Microsoft.Compute/virtualMachines@2024-07-01' = {
+  name: vmName
+  location: location
+  properties: {
+    // ...
+  }
+}
+
+resource installCustomScriptExtension 'Microsoft.Compute/virtualMachines/extensions@2024-07-01' = {
+  parent: vm //specify the parent resource
+  name: 'InstallCustomScript'
+  location: location
+  properties: {
+    // ...
+  }
+}
+
+// Metod 3: depends on 
+resource vm 'Microsoft.Compute/virtualMachines@2024-07-01' = {
+  name: vmName
+  location: location
+  properties: {
+    // ...
+  }
+}
+
+resource installCustomScriptExtension 'Microsoft.Compute/virtualMachines/extensions@2024-07-01' = {
+  name: '${vmName}/InstallCustomScript'
+  dependsOn: [
+    vm
+  ]
+  //...
+}

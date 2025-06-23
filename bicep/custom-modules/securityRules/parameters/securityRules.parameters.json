@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "networkSecurityGroupName": {
+      "value": "li-vm-nsg"
+    },
+    "SecurityRuleName": {
+      "value": "deny-rdp"
+    },
+    "description": {
+      "value": "Deny RDP from any source"
+    },
+    "priority": {
+      "value": 200
+    },
+    "access": {
+      "value": "Deny"
+    },
+    "direction": {
+      "value": "Inbound"
+    },
+    "destinationPortRange": {
+      "value": "3389"
+    },
+    "protocol": {
+      "value": "Tcp"
+    },
+    "sourcePortRange": {
+      "value": "*"
+    },
+    "sourceAddressPrefix": {
+      "value": "*"
+    },
+    "destinationAddressPrefix": {
+      "value": "*"
+    }
+  }
+}

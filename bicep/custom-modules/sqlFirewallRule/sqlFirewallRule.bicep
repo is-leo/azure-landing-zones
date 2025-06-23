@@ -6,7 +6,7 @@ https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/firewall
 
 param sqlServerName string // SQL Server name
 param firewallRuleName string
-param startdIpAddress string
+param startIpAddress string
 param endIpAddress string
 
 // Reference the existing SQL Server
@@ -20,7 +20,7 @@ resource sqlFirewallRule 'Microsoft.Sql/servers/firewallRules@2023-05-01-preview
   parent: sqlServer
   name: firewallRuleName
   properties: {
-    startIpAddress: startdIpAddress
+    startIpAddress: startIpAddress
     endIpAddress: endIpAddress  
   }
 }

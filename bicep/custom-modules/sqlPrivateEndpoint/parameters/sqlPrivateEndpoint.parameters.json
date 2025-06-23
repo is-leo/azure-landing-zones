@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualNetworkResourceGroup": {
+      "value": "my-vnet-rg"
+    },
+    "location": {
+      "value": "swedencentral"
+    },
+    "sqlServerName": {
+      "value": "my-sql-server"
+    },
+    "subnetId": {
+      "value": "/subscriptions/<subscription-id>/resourceGroups/my-vnet-rg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
+    },
+    "privateEndpointName": {
+      "value": "my-sql-pe"
+    },
+    "privateDnsZoneGroupName": {
+      "value": "default" 
+    },
+    "privateDnsZoneId": { 
+      "value": "/subscriptions/<subscription-id>/resourceGroups/my-dns-rg/providers/Microsoft.Network/privateDnsZones/privatelink.database.windows.net"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "owner": "your-name"
+      }
+    }
+  }
+}

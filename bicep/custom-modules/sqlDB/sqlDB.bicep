@@ -6,11 +6,11 @@ https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/database
 */
 
 // Parameters for naming and access
-param location string   // Location for the Resource Group and all resources
+param location string   // Set the same location as the SQL Server
 param sqlServerName string   // SQL Server name
 param sqlDatabaseName string   // Database name
 param sqlSKU string //The SKU of the database.
-param sqlTier string //The SKU of the database.
+param sqlTier string // The tier of the database, e.g., 'Standard', 'Premium', etc.
 param tags object 
 
 
@@ -24,7 +24,7 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2024-05-01-preview' = {
   parent: sqlServer
   name: sqlDatabaseName
   location: location  // Provide location directly
-  tags: tags  // Apply the tags
+  tags: tags 
   sku: {
     name: sqlSKU  // S0 - S10  pricing tier
     tier: sqlTier // Standard
