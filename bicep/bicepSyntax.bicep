@@ -312,3 +312,182 @@ resource auditingSettings 'Microsoft.Sql/servers/auditingSettings@2024-05-01-pre
   properties: {
   }
 }
+
+//The following example deploys multiple storage accounts, and their names are specified as parameter values:
+param storageAccountNames array = [
+  'saauditus'
+  'saauditeurope'
+  'saauditapac'
+]
+
+resource storageAccountResources 'Microsoft.Storage/storageAccounts@2023-05-01' = [for storageAccountName in storageAccountNames: {
+  name: storageAccountName
+  location: resourceGroup().location
+  kind: 'StorageV2'
+  sku: {
+    name: 'Standard_LRS'
+  }
+}]
+
+
+// if you need to create four storage accounts called sa1 through sa4, you could use a resource definition like this:
+resource storageAccountResources 'Microsoft.Storage/storageAccounts@2023-05-01' = [for i in range(1,4): {
+  name: 'sa${i}'
+  location: resourceGroup().location
+  kind: 'StorageV2'
+  sku: {
+    name: 'Standard_LRS'
+  }
+}]
+
+/*When you use the range() function, you provide two arguments.
+ The first specifies the starting value, and the second tells 
+ Bicep the number of values you want. For example, if you use
+range(3,4) then Bicep returns the values 3, 4, 5, and 6. 
+Make sure you request the right number of values, especially
+when you use a starting value of 0.*/
+
+param locations array = [
+  'westeurope'
+  'eastus2'
+  'eastasia'
+]
+
+resource sqlServers 'Microsoft.Sql/servers@2024-05-01-preview' = [for (location, i) in locations: {
+  name: 'sqlserver-${i+1}'
+  location: location
+  properties: {
+    administratorLogin: administratorLogin
+    administratorLoginPassword: administratorLoginPassword
+  }
+}]
+
+//A condition is used with the copy loop to deploy the servers only when the environmentName property of the loop object equals Production:
+param sqlServerDetails array = [
+  {
+    name: 'sqlserver-we'
+    location: 'westeurope'
+    environmentName: 'Production'
+  }
+  {
+    name: 'sqlserver-eus2'
+    location: 'eastus2'
+    environmentName: 'Development'
+  }
+  {
+    name: 'sqlserver-eas'
+    location: 'eastasia'
+    environmentName: 'Production'
+  }
+]
+
+resource sqlServers 'Microsoft.Sql/servers@2024-05-01-preview' = [for sqlServer in sqlServerDetails: if (sqlServer.environmentName == 'Production') {
+  name: sqlServer.name
+  location: sqlServer.location
+  properties: {
+    administratorLogin: administratorLogin
+    administratorLoginPassword: administratorLoginPassword
+  }
+  tags: {
+    environment: sqlServer.environmentName
+  }
+}]
+
+//Control loop execution 
+//witout the @batchSize decorator, Bicep deploys apps in parallel
+//with the @batchSize decorator, Bicep deploys apps in batches (of two in this case) 
+@batchSize(2)
+resource appServiceApp 'Microsoft.Web/sites@2024-04-01' = [for i in range(1,3): {
+  name: 'app${i}'
+  // ...
+}]
+
+//You can also tell Bicep to run the loop sequentially by setting the @batchSize to 1:
+//in this case Bicep waits for each resource deployment to finish before it starts the next one:
+@batchSize(1)
+resource appServiceApp 'Microsoft.Web/sites@2024-04-01' = [for i in range(1,3): {
+  name: 'app${i}'
+  // ...
+}]
+
+//use loops with resource propertie
+param subnetNames array = [
+  'api'
+  'worker'
+]
+
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
+  name: 'teddybear'
+  location: resourceGroup().location
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        '10.0.0.0/16'
+      ]
+    }
+    subnets: [for (subnetName, i) in subnetNames: {
+      name: subnetName
+      properties: {
+        addressPrefix: '10.0.${i}.0/24'
+      }
+    }]
+  }
+}
+
+
+//variable loop
+param addressPrefix string = '10.10.0.0/16'
+param subnets array = [
+  {
+    name: 'frontend'
+    ipAddressRange: '10.10.0.0/24'
+  }
+  {
+    name: 'backend'
+    ipAddressRange: '10.10.1.0/24'
+  }
+]
+
+var subnetsProperty = [for subnet in subnets: {
+  name: subnet.name
+  properties: {
+    addressPrefix: subnet.ipAddressRange
+  }
+}]
+
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' = {
+  name: 'teddybear'
+  location: resourceGroup().location
+  properties:{
+    addressSpace:{
+      addressPrefixes:[
+        addressPrefix
+      ]
+    }
+    subnets: subnetsProperty
+  }
+}
+
+//output loop
+param locations array = [
+  'westeurope'
+  'eastus2'
+  'eastasia'
+]
+
+resource storageAccounts 'Microsoft.Storage/storageAccounts@2023-05-01' = [for location in locations: {
+  name: 'toy${uniqueString(resourceGroup().id, location)}'
+  location: location
+  kind: 'StorageV2'
+  sku: {
+    name: 'Standard_LRS'
+  }
+}]
+
+
+output storageEndpoints array = [for i in range(0, length(locations)): {
+  name: storageAccounts[i].name
+  location: storageAccounts[i].location
+  blobEndpoint: storageAccounts[i].properties.primaryEndpoints.blob
+  fileEndpoint: storageAccounts[i].properties.primaryEndpoints.file
+}]
