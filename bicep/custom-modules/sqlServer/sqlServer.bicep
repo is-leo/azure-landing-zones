@@ -5,8 +5,10 @@ https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=d
 @description('The name of the SQL Server to be created.')
 param sqlServerName string   
 
-@description('Resource group name for the SQL Server.')
-param location string   
+var sqlServerNameUnique = toLower('${sqlServerName}-${location}${uniqueString(resourceGroup().id)}')
+
+@description('The Azure region into which the SQL Server should be deployed.')
+param location string = resourceGroup().location   
 
 @description('Tags to be applied to the SQL Server.')
 param tags object 
@@ -21,7 +23,7 @@ param sqlServerAdministratorPassword string
 
 // Resource: SQL Server (no scope needed, location explicitly set)
 resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview' = {
-  name: sqlServerName
+  name: sqlServerNameUnique
   location: location  
   tags: tags  
   properties: {

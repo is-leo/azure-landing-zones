@@ -8,7 +8,7 @@ MS Doc: https://learn.microsoft.com/en-us/azure/templates/microsoft.storage/stor
 */
 
 param storageAccountName string
-param location string 
+param location string = resourceGroup().location
 param tags object 
 @description('What Sku for the storage? Standard: Standard_LRS')
 @allowed([

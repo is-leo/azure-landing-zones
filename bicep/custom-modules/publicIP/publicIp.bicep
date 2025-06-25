@@ -5,7 +5,7 @@ https://learn.microsoft.com/en-us/azure/templates/microsoft.network/publicipaddr
 */
 
 param publicIpName string
-param location string
+param location string = resourceGroup().location
 param tags object
 param publicIpSku string 
 param publicIPAllocationMethod string 

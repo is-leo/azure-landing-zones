@@ -11,11 +11,11 @@
     "sqlDatabaseName": {
       "value": "my-database"
     },
-    "sqlSKU": {
-      "value": "S0"
-    },
-    "sqlTier": {
-      "value": "Standard"
+    "sku": {
+      "value": {
+        "name": "S0",
+        "tier": "Standard"
+      }
     },
     "tags": {
       "value": {

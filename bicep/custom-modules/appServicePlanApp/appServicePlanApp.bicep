@@ -9,7 +9,7 @@ param environmentName string
 @minLength(5)
 @maxLength(30)
 param solutionName string 
-var solutionNameUnique = '${solutionName}${uniqueString(resourceGroup().id)}'
+var solutionNameUnique = toLower('${solutionName}-${uniqueString(resourceGroup().id)}')
 
 @description('The number of App Service plan instances.')
 @minValue(1)
@@ -20,7 +20,7 @@ param appServicePlanInstanceCount int = 1
 param appServicePlanSku object
 
 @description('The Azure region into which the resources should be deployed.')
-param location string 
+param location string = resourceGroup().location 
 
 @secure()
 @description('The administrator login username for the SQL server.')

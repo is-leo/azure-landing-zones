@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourceType": {
+      "value": "Microsoft.Sql/servers@2024-05-01-preview"
+    },
+    "resourceName": {
+      "value": "madb"
+    },
+    "lockName": {
+      "value": "DontDelete"
+    },
+    "lockLevel": {
+      "value": "CanNotDelete"
+    },
+    "lockNotes": {
+      "value": "Prevents deletion of the resource."
+    }
+  }
+}

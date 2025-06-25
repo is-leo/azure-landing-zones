@@ -180,3 +180,135 @@ resource installCustomScriptExtension 'Microsoft.Compute/virtualMachines/extensi
   ]
   //...
 }
+
+
+// refer to child resource
+resource vnet 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
+  name: 'toy-design-vnet'
+
+  resource managementSubnet 'subnets' existing = {
+    name: 'management'
+  }
+}
+
+//You can then refer to the subnet by using the same :: operator that you use for other nested child resources:
+output managementSubnetResourceId string = vnet::managementSubnet.id
+
+//you can refer to a virtual network named toy-design-vnet in the networking-rg resource group:
+resource vnet 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
+  scope: resourceGroup('networking-rg')
+  name: 'toy-design-vnet'
+}
+
+//You can also refer to a virtual network in a different subscription by using the subscription() function:
+resource vnet 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
+  scope: resourceGroup('aaaa0a0a-bb1b-cc2c-dd3d-eeeeee4e4e4e', 'networking-rg')
+  name: 'toy-design-vnet'
+}
+
+//The following example template creates an Azure SQL database in a server that already exists:
+resource server 'Microsoft.Sql/servers@2024-05-01-preview' existing = {
+  name: serverName
+}
+
+resource database 'Microsoft.Sql/servers/databases@2024-05-01-preview' = {
+  parent: server
+  name: databaseName
+  location: location
+  sku: {
+    name: 'Standard'
+    tier: 'Standard'
+  }
+}
+
+/*It's a best practice to look up keys from other resources 
+in this way instead of passing them around through outputs.
+You'll always get the most up-to-date data. 
+Also, it's important to note that outputs aren't designed 
+to handle secure data like keys.*/
+
+// The following example template deploys an Azure Functions application and uses the access details (instrumentation key) for an existing Application Insights instance:
+
+resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: applicationInsightsName
+}
+
+resource functionApp 'Microsoft.Web/sites@2024-04-01' = {
+  name: functionAppName
+  location: location
+  kind: 'functionapp'
+  properties: {
+    siteConfig: {
+      appSettings: [
+        // ...
+        {
+          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          value: applicationInsights.properties.InstrumentationKey
+        }
+      ]
+    }
+  }
+}
+
+//When you need to access secure data, such as the credentials to use to access a resource, use the listKeys() function, as shown in the following code:
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' existing = {
+  name: storageAccountName
+}
+
+resource functionApp 'Microsoft.Web/sites@2024-04-01' = {
+  name: functionAppName
+  location: location
+  kind: 'functionapp'
+  properties: {
+    siteConfig: {
+      appSettings: [
+        // ...
+        {
+          name: 'StorageAccountKey'
+          value: storageAccount.listKeys().keys[0].value
+        }
+      ]
+    }
+  }
+}
+
+//CONDITIONS AND LOOPS
+
+param deployStorageAccount bool
+//deploys a storage account only when the deployStorageAccount parameter is set to true
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = if (deployStorageAccount) {
+  name: 'teddybearstorage'
+  location: resourceGroup().location
+  kind: 'StorageV2'
+  // ...
+}
+
+@allowed([
+  'Development'
+  'Production'
+])
+param environmentName string
+
+resource auditingSettings 'Microsoft.Sql/servers/auditingSettings@2024-05-01-preview' = if (environmentName == 'Production') {
+  parent: server
+  name: 'default'
+  properties: {
+  }
+}
+
+
+//It's usually a good idea to create a variable for the expression that you're using as a condition. That way, your template is easier to understand and read
+@allowed([
+  'Development'
+  'Production'
+])
+param environmentName string
+
+var auditingEnabled = environmentName == 'Production'
+
+resource auditingSettings 'Microsoft.Sql/servers/auditingSettings@2024-05-01-preview' = if (auditingEnabled) {
+  parent: server
+  name: 'default'
+  properties: {
+  }
+}

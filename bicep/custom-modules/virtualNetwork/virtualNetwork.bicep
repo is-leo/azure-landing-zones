@@ -7,7 +7,7 @@ MS Doc : https://learn.microsoft.com/en-us/azure/templates/microsoft.network/vir
 */
 param virtualNetworkName string
 @description('Location for all resources. ie : swedencentral')
-param location string 
+param location string = resourceGroup().location
 param addressPrefix string
 param tags object 
 

@@ -19,7 +19,7 @@ https://learn.microsoft.com/en-us/azure/templates/microsoft.sqlvirtualmachine/sq
 param vmName string 
 
 @description('Location for all resources.')
-param location string 
+param location string = resourceGroup().location
 
 @description('The virtual machine size.')
 param vmSize string 

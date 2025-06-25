@@ -2,7 +2,7 @@
 param keyVaultName string
 
 @description('Specifies the Azure location where the key vault should be created.')
-param location string
+param location string = resourceGroup().location
 
 @description('Tags to apply to the Key Vault.')
 param tags object = {}

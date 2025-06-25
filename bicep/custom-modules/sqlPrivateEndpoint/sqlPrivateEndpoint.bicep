@@ -2,7 +2,7 @@
 param virtualNetworkResourceGroup string
 
 @description('The location for the resources')
-param location string
+param location string = resourceGroup().location
 
 @description('The name of the Azure SQL Server')
 param sqlServerName string

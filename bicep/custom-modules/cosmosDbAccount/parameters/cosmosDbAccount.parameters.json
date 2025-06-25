@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cosmosDBAccountName": {
+      "value": "my-cosmosdb-account"
+    },
+    "location": {
+      "value": "swedencentral"
+    },
+    "cosmosDBDatabaseThroughput": {
+      "value": 400
+    },
+    "cosmosDBDatabaseName": {
+      "value": "mydatabase"
+    },
+    "cosmosDBContainerName": {
+      "value": "mycontainer"
+    },
+    "cosmosDBContainerPartitionKey": {
+      "value": "/droneId"
+    }
+  }
+}
