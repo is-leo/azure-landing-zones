@@ -14,7 +14,7 @@ var solutionNameUnique = toLower('${solutionName}-${uniqueString(resourceGroup()
 @description('The number of App Service plan instances.')
 @minValue(1)
 @maxValue(10)
-param appServicePlanInstanceCount int = 1
+param appServicePlanInstanceCount int 
 
 @description('The name and tier of the App Service plan SKU.')
 param appServicePlanSku object
@@ -33,10 +33,11 @@ param sqlServerAdministratorPassword string
 @description('The name and tier of the SQL database SKU.')
 param sqlDatabaseSku object
 
+
 var appServicePlanName = '${environmentName}-${solutionNameUnique}-plan'
 var appServiceAppName = '${environmentName}-${solutionNameUnique}-app'
 var sqlServerName = '${environmentName}-${solutionNameUnique}-sql'
-var sqlDatabaseName = 'appdb'
+var sqlDatabaseName = '${environmentName}-${solutionNameUnique}-db'
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
   name: appServicePlanName
