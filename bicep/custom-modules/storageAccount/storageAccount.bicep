@@ -8,8 +8,11 @@ MS Doc: https://learn.microsoft.com/en-us/azure/templates/microsoft.storage/stor
 */
 
 param storageAccountName string
+
 param location string = resourceGroup().location
+
 param tags object 
+
 @description('What Sku for the storage? Standard: Standard_LRS')
 @allowed([
   'Standard_LRS' //Locally redundant storage (LRS)
@@ -18,6 +21,7 @@ param tags object
   'Standard_ZRS' //Zone-redundant storage (ZRS)
   'Premium_ZRS'
 ])
+
 param storageSku string
 @description('Storage kind: Standard : StorageV2')
 @allowed([
@@ -27,6 +31,7 @@ param storageSku string
   'Storage'         
   'StorageV2'
 ])
+
 param kind string
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {

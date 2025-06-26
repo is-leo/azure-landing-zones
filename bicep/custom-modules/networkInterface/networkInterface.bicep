@@ -23,19 +23,19 @@ param createPublicIP bool
 param publicIPName string = '${nicName}-publicIP'
 
 @description('Optional public IP SKU')
-param publicIPSKU string = 'Basic'
+param publicIPSKU string 
 
 @description('Optional public IP allocation method (Static or Dynamic)')
-param publicIPAllocationMethod string = 'Dynamic'
+param publicIPAllocationMethod string 
 
 @description('Private IP allocation method (Static or Dynamic)')
-param privateIPAllocationMethod string = 'Dynamic'
+param privateIPAllocationMethod string 
 
 @description('The ID of the Virtual Network')
 param infraResourceGroup string
 
 @description('The IP configuration name')
-param ipConfigName string = 'ipconfig'
+param ipConfigName string 
 
 param tags object
 

@@ -8,19 +8,19 @@ param location string = resourceGroup().location
 param tags object = {}
 
 @description('Specifies whether purge protection is enabled for the vault. The setting is only effective if soft delete is also enabled. Enabling this feature cannot be undone.')
-param enablePurgeProtection bool = true
+param enablePurgeProtection bool 
 
 @description('Specifies whether Azure Virtual Machines are permitted to retrieve certificates stored as secrets from the key vault.')
-param enabledForDeployment bool = false
+param enabledForDeployment bool 
 
 @description('Specifies whether Azure Disk Encryption is permitted to retrieve secrets from the vault and unpack keys.')
-param enabledForDiskEncryption bool = false
+param enabledForDiskEncryption bool 
 
 @description('Specifies whether Azure Resource Manager is permitted to retrieve secrets from the key vault.')
-param enabledForTemplateDeployment bool = false
+param enabledForTemplateDeployment bool 
 
 @description('Specifies whether the key vault should use role-based access control (RBAC) for authorization. If set to true, the vault uses RBAC; if false, it uses access policies.')
-param enableRbacAuthorization bool = false
+param enableRbacAuthorization bool
 
 @description('Specifies the Azure Active Directory tenant ID that should be used for authenticating requests to the key vault.')
 param tenantId string
@@ -39,7 +39,7 @@ param secretsPermissions array = []
   'standard'
   'premium'
 ])
-param skuName string = 'standard'
+param skuName string 
 
 @description('Network ACLs for the Key Vault.')
 param networkAcls object = {
