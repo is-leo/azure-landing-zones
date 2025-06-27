@@ -1,0 +1,10 @@
+git status
+
+git add deploy/modules/cosmos-db.bicep
+git add .
+
+git commit --message "Add Cosmos DB account definition"
+
+git log --pretty=oneline
+git log bicep\custom-modules\CDN\cdnProfileEndpoint.bicep
+or right-click a file and select 'open timeline'
