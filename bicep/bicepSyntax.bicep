@@ -534,3 +534,99 @@ module virtualMachine 'modules/vm.bicep' = {
     subnetResourceId: virtualNetwork.outputs.subnetResourceId
   }
 }
+
+//bicep stucture recommendations
+//You might be able to reduce the number of parameters by grouping related parameters in the form of a parameter object, like this:
+param appServicePlanSku object = {
+  name: 'S1'
+  capacity: 2
+}
+
+//Use predefined configuration sets
+@allowed([
+  'Production'
+  'Test'
+])
+param environmentType string = 'Test'
+
+var environmentConfigurationMap = {
+  Production: {
+    appServicePlan: {
+      sku: {
+        name: 'P2V3'
+        capacity: 3
+      }
+    }
+    storageAccount: {
+      sku: {
+        name: 'ZRS'
+      }
+    }
+  }
+  Test: {
+    appServicePlan: {
+      sku: {
+        name: 'S2'
+        capacity: 1
+      }
+    }
+    storageAccount: {
+      sku: {
+        name: 'LRS'
+      }
+    }
+  }
+}
+
+resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
+  name: appServicePlanName
+  location: location
+  sku: environmentConfigurationMap[environmentType].appServicePlan.sku
+}
+
+
+//The following example uses a configuration map to deploy logging resources for production environments, but not for test environments:
+var environmentConfigurationMap = {
+  Production: {
+    enableLogging: true
+  }
+  Test: {
+    enableLogging: false
+  }
+}
+
+resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = if (environmentConfigurationMap[environmentType].enableLogging) {
+  name: logAnalyticsWorkspaceName
+  location: location
+}
+
+resource cosmosDBAccountDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = if (environmentConfigurationMap[environmentType].enableLogging) {
+  scope: cosmosDBAccount
+  name: cosmosDBAccountDiagnosticSettingsName
+  properties: {
+    workspaceId: logAnalyticsWorkspace.id
+    // ...
+  }
+}
+
+
+//adding 'c' in the of json file 'jsonc' allows comments in the file !!!!!!!!!!
+
+
+/*  possible tags: {
+     "environment": "production",
+      "project": "KeyVaultDeployment",
+      "owner": "IT",
+      "costCenter": "12345"
+  }*/
+
+
+  
+/*You speak to your colleagues and decide to use specific SKUs for each resource, depending on the environment being deployed.
+ You decide on these SKUs for each of your resources:
+
+Resource	            SKU for production	       SKU for non-production
+App Service plan	    S1, two instances	         F1, one instance
+Storage account	      GRS	                       LRS
+SQL database	        S1	                       Basic
+*/

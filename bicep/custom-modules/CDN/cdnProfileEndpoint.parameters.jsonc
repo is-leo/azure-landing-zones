@@ -1,0 +1,13 @@
+//adding 'c' in the of json file 'jsonc' allows comments in the file
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "originHostName": {
+      "value": ""
+    },
+    "httpsOnly": {
+      "value": false
+    }
+  }
+}

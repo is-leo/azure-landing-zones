@@ -1,16 +1,29 @@
+/*
+  SYNOPSIS: Module for provisioning CDN profile endpoint.
+  DESCRIPTION: This module provisions an Azure CDN Profile Endpoint. It creates and configures a CDN endpoint as part of the specified CDN profile.
+  VERSION: 1.0.0
+  OWNER TEAM: Cegal CloudOps 
+*/
+
 @description('The host name (address) of the origin server.')
 param originHostName string
-
-@description('The name of the CDN profile.')
-param profileName string = 'cdn-${uniqueString(resourceGroup().id)}'
-
-@description('The name of the CDN endpoint')
-param endpointName string = 'endpoint-${uniqueString(resourceGroup().id)}'
 
 @description('Indicates whether the CDN endpoint requires HTTPS connections.')
 param httpsOnly bool
 
-var originName = 'my-origin'
+@description('A unique suffix to add to resource names that need to be globally unique.')
+@maxLength(13)
+param resourceNameSuffix string = uniqueString(resourceGroup().id)
+
+@description('The name of the CDN profile.')
+var profileName string = 'cdn-${resourceNameSuffix}'
+
+@description('The name of the CDN endpoint')
+var endpointName string = 'endpoint-${resourceNameSuffix}'
+
+@description('The name of the origin server for the CDN endpoint.')
+var originName string = 'my-origin'
+
 
 resource cdnProfile 'Microsoft.Cdn/profiles@2024-09-01' = {
   name: profileName

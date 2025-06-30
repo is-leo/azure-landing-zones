@@ -11,7 +11,9 @@
     "tags": {
       "value": {
         "environment": "production",
-        "department": "IT"
+        "project": "KeyVaultDeployment",
+        "owner": "IT",
+        "costCenter": "12345"    
       }
     },
     "enablePurgeProtection": {

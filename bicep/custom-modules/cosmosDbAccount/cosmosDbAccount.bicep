@@ -1,6 +1,12 @@
+/*
+  SYNOPSIS: Module for provisioning a Cosmos DB Account.
+  DESCRIPTION: This module deploys an Azure Cosmos DB Account with configurable settings. Customize the parameters to fit your environment and workload requirements.
+  VERSION: 1.0.0
+  OWNER TEAM: Cegal CloudOps 
+*/
+
 param cosmosDBAccountName string 
-var cosmosDBAccountNameUnique = toLower('${cosmosDBAccountName}-${uniqueString(resourceGroup().id)}')
-                                
+                             
 param location string = resourceGroup().location 
 
 param cosmosDBDatabaseThroughput int 
@@ -8,7 +14,10 @@ param cosmosDBDatabaseThroughput int
 param cosmosDBDatabaseName string
 
 param cosmosDBContainerName string
+
 param cosmosDBContainerPartitionKey string // ex. '/droneId'
+
+var cosmosDBAccountNameUnique = toLower('${cosmosDBAccountName}-${uniqueString(resourceGroup().id)}')
 
 resource cosmosDBAccount 'Microsoft.DocumentDB/databaseAccounts@2024-11-15' = {
   name: cosmosDBAccountNameUnique

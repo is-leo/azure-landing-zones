@@ -13,11 +13,13 @@ param sqlServerAdministratorLogin string
 param sqlServerAdministratorPassword string
 
 
-module databases 'modules/database.bicep' = [for location in locations: {
+module databases 'database.bicep' = [for location in locations: {
   name: 'database-${location}'
   params: {
     location: location
     sqlServerAdministratorLogin: sqlServerAdministratorLogin
-    sqlServerAdministratorLoginPassword: sqlServerAdministratorLoginPassword
+    sqlServerAdministratorPassword: sqlServerAdministratorPassword
   }
 }]
+
+
